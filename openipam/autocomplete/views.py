@@ -96,6 +96,7 @@ class IPAMSearchAutoComplete(View):
     }
 
     def get_queryset(self, model_class=None):
+        print(f"\n\nget_queryset: {model_class}\n\n")
         if not model_class:
             querysets = [self.get_queryset(model) for model in self._models_to_search]
             return querysets
@@ -105,7 +106,7 @@ class IPAMSearchAutoComplete(View):
                     self.get_search_filters(model_class)
                 )[
                     :5
-                ]  # Limit to 3 results per model
+                ]  # Limit to 5 results per model
             except KeyError:
                 # If the model is not in _search_fields, return an empty queryset.
                 return model_class.objects.none()
